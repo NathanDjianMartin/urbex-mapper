@@ -1,0 +1,12 @@
+.App {
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+#map {
+  border-color: red;
+  border-width: 3px;
+  background-color: pink;
+  height: 1000px;
+}
