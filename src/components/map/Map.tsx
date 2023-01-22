@@ -5,13 +5,11 @@ import { createCustomEqual } from 'fast-equals';
 interface MapProps extends google.maps.MapOptions {
   onClick?: (e: google.maps.MapMouseEvent) => void;
   onIdle?: (map: google.maps.Map) => void;
-  children?: React.ReactNode;
 }
 
 const Map: React.FC<MapProps> = ({
   onClick,
   onIdle,
-  children,
   ...options
 }) => {
 
@@ -50,15 +48,6 @@ const Map: React.FC<MapProps> = ({
   return (
     <div>
       <div ref={ref} style={{height: "95vh"}} />
-      {
-        React.Children.map(children, (child) => {
-          if (React.isValidElement(child)) {
-            // set map prop on child component
-            // @ts-ignore
-            return React.cloneElement(child, { map }) // TODO: use renderItem prop instead https://beta.reactjs.org/reference/react/cloneElement
-          }
-        })
-      }
     </div>
   )
 }

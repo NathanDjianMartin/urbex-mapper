@@ -1,6 +1,5 @@
 import React from 'react'
 import Map from './map/Map'
-import Marker from './map/Marker'
 
 function App() {
   const [clicks, setClicks] = React.useState<google.maps.LatLng[]>([])
@@ -11,19 +10,25 @@ function App() {
   })
 
   const onClick = (event: google.maps.MapMouseEvent) => {
-    setClicks([...clicks, event.latLng!]) // TODO: handle exclamation mark gracefully
+    if (event.latLng) {
+      setClicks([...clicks, event.latLng])
+    }
   }
 
   const onIdle = (map: google.maps.Map) => {
-    setZoom(map.getZoom()!) // TODO: handle exclamation mark gracefully
-    setCenter(map.getCenter()!.toJSON()) // TODO: handle exclamation mark gracefully
+    const mapZoom = map.getZoom()
+    if (mapZoom) {
+      setZoom(mapZoom) 
+    }
+    const mapCenter = map.getCenter()
+    if (mapCenter) {
+      setCenter(mapCenter.toJSON())
+    }
   }
 
   return (
     <div>
-      <Map center={center} zoom={zoom} onClick={onClick} onIdle={onIdle}>
-        {clicks.map((latLng, index) => (<Marker key={index} position={latLng} />))}
-      </Map>
+      <Map center={center} zoom={zoom} onClick={onClick} onIdle={onIdle} />
     </div>
   )
 }
