@@ -1,7 +1,6 @@
 import React from 'react'
-import './App.css'
-import Map from './Map'
-import { Marker } from './Marker'
+import Map from './map/Map'
+import Marker from './map/Marker'
 
 function App() {
   const [clicks, setClicks] = React.useState<google.maps.LatLng[]>([])
@@ -21,9 +20,8 @@ function App() {
   }
 
   return (
-    <div className="App" style={{height: "1000px", width: "1000px", background: "red"}}>
-      <h1>Urbex Mapper</h1>
-      <Map style={{"margin": "10px"}}  center={center} zoom={zoom} onClick={onClick} onIdle={onIdle}>
+    <div>
+      <Map center={center} zoom={zoom} onClick={onClick} onIdle={onIdle}>
         {clicks.map((latLng, index) => (<Marker key={index} position={latLng} />))}
       </Map>
     </div>
